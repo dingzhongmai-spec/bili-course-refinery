@@ -4,6 +4,10 @@ The MIT license in this repository covers its original code, instructions and te
 
 本仓库MIT许可仅覆盖原创代码、指令和模板，不改变依赖或课程内容的许可。第三方工具由安装器取得并留在本地`.runtime/`，不包含在源码压缩包中。
 
+The bilingual handout-design guidance selectively adapts ideas from `potergh/build-tutoring-handout`, revision `af91b853aefd8f0be048e54ea593578c5af81a7a`. Reviewed files, adaptation boundaries and the complete upstream MIT notice are retained in the portable skill's [provenance reference](.agents/skills/bili-course-refinery/references/upstream-notice.md). No upstream templates, PDFs or scripts are bundled.
+
+中英文教学设计参考选择性吸收该仓库规则，固定提交、阅读文件、适配边界和完整上游MIT声明随skill保留；未打包上游模板、PDF或脚本。
+
 |Dependency / 依赖|Source / 来源|Local record / 本地记录|
 |---|---|---|
 |Bilibili acquisition tool|https://github.com/NANblogink/bilibilidownloadtool |Pinned commit and original upstream README; follow its use/distribution conditions|

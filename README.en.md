@@ -47,6 +47,8 @@ The launcher uses workspace-write sandboxing, network access and automatic appro
 
 The bilingual, project-discoverable skill is [.agents/skills/bili-course-refinery/SKILL.md](.agents/skills/bili-course-refinery/SKILL.md). It includes self-contained English and Chinese references. No global skill installation is required. To reuse it in other projects, copy the complete skill folder into their `.agents/skills/` directory.
 
+The new [handout design guide](.agents/skills/bili-course-refinery/references/handout.en.md) covers material readability and authentic assets, knowledge structure and learner-action coverage, example/practice functions, length budgets and optional edition QA. Selected ideas from `potergh/build-tutoring-handout` are adapted to this project's screenshot intake, LaTeX/PDF and existing authorization; [pinned provenance and the MIT notice](.agents/skills/bili-course-refinery/references/upstream-notice.md) are retained.
+
 Core rule: **evidence constrains facts; mathematics constrains conclusions; the user defines the goal. AI may improve explanations, organization and implementation. Prefer simple reliable methods and substantiate completion claims.**
 
 Five reviews: coverage, mathematical validity, recalculation, method choice and presentation. Transcripts and sampled frames are evidence, not guaranteed truth. CAS only validates actually executed checks. Number displayed equations and inspect the compiled PDF.

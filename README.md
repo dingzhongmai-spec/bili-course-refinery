@@ -32,6 +32,8 @@ git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/ding
 
 中英文skill位于 [.agents/skills/bili-course-refinery/SKILL.md](.agents/skills/bili-course-refinery/SKILL.md)，项目内可发现，无需更改全局设置；可复制整个skill文件夹到其他项目的`.agents/skills/`复用。
 
+Skill新增[讲义教学设计](.agents/skills/bili-course-refinery/references/handout.zh.md)：材料可读性与原图处理、知识结构和学习行动覆盖、例题/练习功能、篇幅预算及可选多版本验收。选择性参考`potergh/build-tutoring-handout`，已保留[固定来源与MIT声明](.agents/skills/bili-course-refinery/references/upstream-notice.md)，按本项目的截图起点、LaTeX/PDF和已有授权适配。
+
 ## 工作流
 
 从用户上传的一张截图开始，把课程转成能独立学习、回查和复算的讲义：**上传截图 → 识别线索并定位课程 → 建立范围清单 → 工具采集 → 口述与板书核对 → 方法解释 → 例题推导 → 五轮审阅 → LaTeX/PDF → 验收与清理**。
