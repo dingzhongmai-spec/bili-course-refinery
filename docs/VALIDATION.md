@@ -7,6 +7,7 @@
 - 5项自动测试通过：未授权HTTP请求拒绝、图片上传与待审状态、无效图片拒绝、缺少CLI时保留桌面任务、子进程正确取得截图/标准输入并保存结果。子进程测试使用桩，不消耗真实AI额度。
 - 本机已安装Codex CLI的exec帮助确认支持使用的选项；Windows npm启动器会解析为Node入口，避免经shell拼接任务文本。
 - 中英文skill通过Skill Creator校验。
+- 发布后从GitHub克隆至新目录，实际运行单条Git别名命令（测试添加`--no-browser`），服务成功启动。命令保留调用目录，避免Git的shell别名将子目录调用重定位到仓库根目录。
 - 未重新执行整套课程采集、ASR或真实CLI付费推理；桌面截图上传与进程接线测试不能替代全链路内容核验。
 - `docs/ci.example.yml`提供Windows/Linux与Python3.10/3.13的CI示例。当前GitHub令牌没有workflow权限，因此未启用Actions；本地测试已执行。
 

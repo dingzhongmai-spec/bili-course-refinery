@@ -9,13 +9,13 @@ Start from a screenshot, verify the course, acquire public accessible lecture ev
 On **Windows PowerShell with Git and Python installed**:
 
 ```powershell
-git -c 'alias.refine=!git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && py -3 launch.py' refine
+git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && py -3 launch.py' refine
 ```
 
 On **macOS/Linux with Git and Python 3 installed**:
 
 ```sh
-git -c 'alias.refine=!git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && python3 launch.py' refine
+git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && python3 launch.py' refine
 ```
 
 This temporary Git alias clones the project and launches the local app; it does not change global Git settings. Plain `git clone` does not execute project code. Use a directory where `bili-course-refinery` does not yet exist. For an existing checkout run `python launch.py` (or `py -3 launch.py`). No Python packages or virtual environment are needed for the launcher. Press Ctrl+C to stop the server after a running task completes.

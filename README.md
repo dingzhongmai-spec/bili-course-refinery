@@ -7,13 +7,13 @@
 **Windows PowerShell，已安装Git与Python：**
 
 ```powershell
-git -c 'alias.refine=!git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && py -3 launch.py' refine
+git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && py -3 launch.py' refine
 ```
 
 **macOS/Linux，已安装Git与Python 3：**
 
 ```sh
-git -c 'alias.refine=!git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && python3 launch.py' refine
+git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && python3 launch.py' refine
 ```
 
 执行后自动打开本地截图上传页面，支持文件选择、拖入和粘贴。上传截图，填写可选要求，点击“开始整理”，启动器会将截图和项目约束传给本机已登录的Codex CLI，后台执行并显示日志、结果和生成后的PDF/TeX链接。
