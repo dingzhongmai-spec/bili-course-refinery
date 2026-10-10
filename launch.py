@@ -12,14 +12,19 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
+from runtime import activate
 
 ROOT = Path(__file__).resolve().parent
+CONFIG = activate(ROOT)
 TOKEN = secrets.token_urlsafe(32)
 LOCK = threading.Lock()
 ACTIVE = set()
 
 
 def codex_command():
+    configured = CONFIG.get('codex_command')
+    if configured and all(Path(p).is_file() for p in configured):
+        return configured
     # Avoid invoking npm's .cmd through a shell: resolve its actual Node entry point.
     for name in ('codex', 'codex.cmd', 'codex.exe'):
         found = shutil.which(name)
@@ -80,6 +85,10 @@ verify source pages and author, then create the lesson/page manifest.
 If this is only a tool or account screenshot and no course is specified below,
 report the missing course target; never substitute the tool author as lecturer.
 Work directory: {relative}. Main TeX: {relative}/final/lecture.tex.
+Runtime configuration: .runtime/config.json (if installed). Use its Python interpreter,
+downloader path, ASR model and PDF engine instead of assuming tools are on the system PATH.
+Acquisition command: the configured Python + scripts/acquire.py --bvid BV... --page 1 --work {relative}.
+PDF command: the configured Python + scripts/compile_pdf.py --tex {relative}/final/lecture.tex.
 Output language: {'English' if language == 'en' else '简体中文'}.
 Use https://github.com/NANblogink/bilibilidownloadtool as the acquisition tool.
 Check existing tools; use this external tool under its upstream terms for public accessible content.
@@ -124,6 +133,7 @@ def run_task(task_id):
             with (folder / 'run.log').open('wb') as log:
                 completed = subprocess.run(args, input=(folder / 'prompt.txt').read_bytes(),
                     stdout=log, stderr=subprocess.STDOUT, cwd=ROOT,
+                    env={**os.environ, 'PYTHONUTF8': '1', 'PYTHONIOENCODING': 'utf-8'},
                     creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0)
             state['status'] = 'finished' if completed.returncode == 0 else 'failed'
             state['exit_code'] = completed.returncode
@@ -164,7 +174,12 @@ class Handler(BaseHTTPRequestHandler):
             if path == '/':
                 return self.reply(200, (ROOT / 'ui/index.html').read_bytes(), 'text/html; charset=utf-8')
             if path == '/api/environment':
-                return self.reply(200, {'codex_available': bool(codex_command()), 'directory': str(ROOT)})
+                return self.reply(200, {'codex_available': bool(codex_command()), 'directory': str(ROOT),
+                    'installation': CONFIG.get('status', 'not_installed'),
+                    'verified': CONFIG.get('verified', {}), 'tex_engine': CONFIG.get('tex_engine'),
+                    'version': (ROOT / 'VERSION').read_text(encoding='utf-8').strip() if (ROOT / 'VERSION').is_file() else 'development',
+                    'tools': {key: shutil.which(key) for key in ('ffmpeg', 'ffprobe', 'xelatex', 'tectonic')},
+                    'installation_error': CONFIG.get('error')})
             if path == '/api/tasks':
                 records = []
                 for p in sorted((ROOT / 'work').glob('*/task.json'), key=lambda x: x.stat().st_mtime, reverse=True):

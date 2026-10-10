@@ -1,0 +1,12 @@
+requests>=2.32,<3
+PyQt5>=5.15,<6
+curl_cffi>=0.11,<1
+orjson>=3.10,<4
+Pillow>=11,<13
+psutil>=6,<8
+qrcode>=8,<9
+cryptography>=44,<50
+pywin32>=308; sys_platform == 'win32'
+faster-whisper>=1.1,<2
+huggingface-hub>=0.30,<2
+PyMuPDF>=1.25,<2

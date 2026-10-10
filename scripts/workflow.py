@@ -8,6 +8,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from runtime import activate
+activate(ROOT)
 
 
 def write_json(path, data):
@@ -22,7 +25,7 @@ def doctor(_):
         'python': sys.version.split()[0], 'executable': sys.executable,
         'platform': platform.platform(),
         'tools': {name: shutil.which(name) for name in
-                  ('ffmpeg', 'ffprobe', 'xelatex', 'latexmk', 'wolframscript')},
+                  ('ffmpeg', 'ffprobe', 'xelatex', 'tectonic', 'latexmk', 'wolframscript')},
         'note': 'Missing optional tools do not block init/check. Availability is not a runtime test.'
     }, ensure_ascii=False, indent=2))
 

@@ -1,0 +1,14 @@
+{
+  "ffmpeg-9.0.2-essentials_build.zip": {
+    "tag_name": "9.0.2",
+    "name": "ffmpeg-9.0.2-essentials_build.zip",
+    "browser_download_url": "https://github.com/GyanD/codexffmpeg/releases/download/9.0.2/ffmpeg-9.0.2-essentials_build.zip",
+    "digest": "sha256:60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba"
+  },
+  "tectonic-0.17.0-x86_64-pc-windows-msvc.zip": {
+    "tag_name": "tectonic@0.17.0",
+    "name": "tectonic-0.17.0-x86_64-pc-windows-msvc.zip",
+    "browser_download_url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-pc-windows-msvc.zip",
+    "digest": "sha256:f61ce51f0b0ade1015b7de7ef368541c5424e9756ecbd0d7af97d6d48030845f"
+  }
+}

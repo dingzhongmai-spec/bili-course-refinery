@@ -4,21 +4,27 @@
 
 Start from a screenshot, verify the course, acquire public accessible lecture evidence, explain methods and derivations, perform five real reviews, and deliver editable LaTeX/PDF.
 
-## One Git command to start locally
+## One Git command to install, configure and launch
 
-On **Windows PowerShell with Git and Python installed**:
+On **Windows 10/11 x64 with Git installed and Internet access**:
 
 ```powershell
-git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && py -3 launch.py' refine
+git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1' refine
 ```
 
-On **macOS/Linux with Git and Python 3 installed**:
+Setup reuses Python or installs a signed python.org distribution if absent. It prepares project-local Python packages, a pinned acquisition tool, a small local ASR model, FFmpeg/FFprobe, and a portable Tectonic PDF compiler when XeLaTeX is absent. Codex CLI (and Node when needed) is installed locally if missing. Runtime files stay under `.runtime/`; there is no Python virtualenv or global PATH change.
+
+It validates media tools, ASR model loading, downloader imports and a real Chinese PDF before marking setup ready. Downloads are checksum-verified. First installation downloads several hundred MB or more; network failures are reported and logged rather than labelled success. Repeat `install.ps1` to retry with cached files. Use `-NoLaunch` to install and validate only.
+
+Codex sign-in must be completed by the account owner; existing sign-in is reused. Installation cannot bypass source-site restrictions or certify course review. Details: [installation guide](docs/INSTALL.md).
+
+**macOS/Linux currently use manually prepared dependencies**:
 
 ```sh
 git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && python3 launch.py' refine
 ```
 
-This temporary Git alias clones the project and launches the local app; it does not change global Git settings. Plain `git clone` does not execute project code. Use a directory where `bili-course-refinery` does not yet exist. For an existing checkout run `python launch.py` (or `py -3 launch.py`). No Python packages or virtual environment are needed for the launcher. Press Ctrl+C to stop the server after a running task completes.
+This temporary Git alias clones, installs and launches the project without changing global Git settings. Plain `git clone` does not execute project code. Use a directory where `bili-course-refinery` does not yet exist. Existing Windows checkouts: `git pull --ff-only`, then `powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1`. For the minimal UI only run `python launch.py` (or `py -3 launch.py`). Press Ctrl+C to stop after a running task completes.
 
 ## Use the app
 
@@ -27,7 +33,7 @@ This temporary Git alias clones the project and launches the local app; it does 
 3. Click **Start refining**. The launcher passes the image and project instructions to your installed, signed-in Codex CLI using `codex exec`. It uses your configured model/account and may consume your normal Codex allowance. It does not embed API keys.
 4. Follow logs and results on the page. Tasks survive page refresh and are saved under `work/<task-id>/`. Final PDF and TeX links appear when generated.
 
-Codex CLI must be installed and signed in for automatic execution. If it is absent, the local app still works: choose **Prepare desktop task**, copy the prompt and attach the original screenshot in Codex desktop. This fallback is explicitly shown, not presented as an automatic AI run.
+Automatic execution needs Codex sign-in. The full Windows installer prepares the CLI when missing; the minimal UI can also generate a desktop task, where you copy the prompt and attach the original screenshot in Codex desktop.
 
 The launcher uses workspace-write sandboxing, network access and automatic approval review; it does not disable safeguards. Environment restrictions can still block a tool or require user action. Keep the local service running while the task executes. Screenshot-to-PDF completion depends on source availability, installed acquisition/ASR/LaTeX tools and successful content review.
 
@@ -47,6 +53,6 @@ Five reviews: coverage, mathematical validity, recalculation, method choice and 
 
 ## Repository contents
 
-`launch.py` and `ui/` implement the local application. `scripts/` provides standalone structure checks, frame extraction and optional ASR. `templates/` and `examples/` contain original teaching examples. Chinese detailed workflow, dependencies, retrospectives and validation records are in `docs/`.
+`install.ps1`/`install.py` prepare and validate the environment; `runtime.py` shares project-local paths. `launch.py` and `ui/` implement the local application. `scripts/` includes real per-lesson acquisition, frame extraction, ASR and PDF compilation adapters. `templates/` and `examples/` contain original teaching examples. Detailed workflow and validation records are in `docs/`.
 
-Raw screenshots, course media, transcripts, generated notes, credentials and execution logs remain in the ignored `work/` directory. The repository does not distribute third-party course materials or the upstream downloader. Cleanup and public redistribution require the relevant user authorization. A software license has not yet been selected; upstream licenses are separate.
+Raw screenshots and course materials remain in ignored `work/`; installed tools and local configuration stay in ignored `.runtime/`. Original source, documentation and skill are [MIT licensed](LICENSE). Third-party tools, models and course materials retain their own licenses. Cleanup and public redistribution require the relevant authorization.

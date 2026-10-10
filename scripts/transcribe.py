@@ -3,13 +3,16 @@ import argparse
 import json
 from pathlib import Path
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from runtime import activate
+CONFIG = activate()
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--audio', required=True)
     parser.add_argument('--out', required=True)
-    parser.add_argument('--model', default='small', help='Model name (may download) or local CT2 directory')
+    parser.add_argument('--model', default=CONFIG.get('asr_model', 'small'), help='Configured local CT2 model or model name')
     parser.add_argument('--device', choices=('cpu', 'cuda'), default='cpu')
     parser.add_argument('--compute-type', default=None)
     args = parser.parse_args()

@@ -1,5 +1,7 @@
 # 工具依赖
 
+Windows完整安装优先使用根目录`install.ps1`，自动准备下表中需要的采集、媒体、ASR与PDF运行依赖，并记录在`.runtime/config.json`。缺少XeLaTeX时用便携Tectonic；不要求用户另装完整TeX Live。详见[安装说明](INSTALL.md)。下面的手动安装方法仍适用于最小脚本、其他操作系统和自定义工具。
+
 ## 按需求安装
 
 |层级|工具|用途|是否必须|

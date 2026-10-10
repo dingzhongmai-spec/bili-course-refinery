@@ -31,4 +31,6 @@
 
 ## Codex 适配
 
+安装配置优先：读取`.runtime/config.json`，使用它记录的Python、工具路径、ASR模型和PDF引擎。`scripts/acquire.py`按BV与分P采集并校验时长，`scripts/compile_pdf.py`根据配置编译。不要因为系统PATH缺少xelatex就判定PDF输出不可用；可能已安装Tectonic。安装状态与课程审阅状态分别记录。
+
 工具可用性以本次会话实际提供为准，详见 docs/CODEX.md。本地命令、内置预览、独立 PDF 是不同渠道，不把“已打开”写成“已编译”。每批写入 progress.json；中断后从记录和主文件继续。无需自动使用多代理；只有用户或适用规则明确要求时才委派。

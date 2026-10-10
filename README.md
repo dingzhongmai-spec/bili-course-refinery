@@ -2,15 +2,21 @@
 
 [中文](README.md) · [English](README.en.md)
 
-## 一条Git命令在本地启动
+## 一条Git命令安装、配置并启动
 
-**Windows PowerShell，已安装Git与Python：**
+**Windows 10/11 x64，已安装Git，可联网：**
 
 ```powershell
-git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && py -3 launch.py' refine
+git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1' refine
 ```
 
-**macOS/Linux，已安装Git与Python 3：**
+安装器将复用已有Python；缺少时从python.org取得并验证签名后安装。采集器源码、Python包、small ASR模型、缺少的FFmpeg/FFprobe和Tectonic PDF编译器保存于项目`.runtime/`；Codex CLI缺少时安装项目内副本（需要时准备Node）。已有XeLaTeX可直接复用，缺少它也能通过Tectonic输出中文PDF。
+
+安装后执行媒体工具、模型加载、采集器导入和中文PDF实际检查。只有全部检查通过才记录“ready”；失败保留日志，不把“网页可打开”当作环境齐备。首次需下载数百MB以上，时间取决于网络。下载的便携工具校验SHA-256；不修改系统PATH，不使用Python虚拟环境。
+
+Codex首次登录会打开本人认证流程；已有登录直接复用。安装配置能自动完成，账号认证、验证码、源站访问限制不能由脚本代替。软件与源站可用性仍影响实际课程任务，安装自检不代表课程内容已经通过五轮审阅。
+
+**macOS/Linux目前保留手动依赖模式（已安装Python 3与相应工具）：**
 
 ```sh
 git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/dingzhongmai-spec/bili-course-refinery.git bili-course-refinery && cd bili-course-refinery && python3 launch.py' refine
@@ -18,11 +24,11 @@ git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/ding
 
 执行后自动打开本地截图上传页面，支持文件选择、拖入和粘贴。上传截图，填写可选要求，点击“开始整理”，启动器会将截图和项目约束传给本机已登录的Codex CLI，后台执行并显示日志、结果和生成后的PDF/TeX链接。
 
-这是临时Git别名实现的“克隆＋启动”，不会修改全局Git设置；普通`git clone`本身不会运行仓库程序。目标目录需尚不存在。已有仓库直接执行`py -3 launch.py`或`python launch.py`。
+这是临时Git别名实现的“克隆＋安装＋启动”，不会修改全局Git设置；普通`git clone`本身不会运行仓库程序。目标目录需尚不存在。已有Git仓库先`git pull --ff-only`，再运行`powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1`；可重复执行，复用已经下载的工具。仅安装和验证而不启动：加`-NoLaunch`。安装日志和完整配置见`.runtime/install.log`、`.runtime/config.json`。
 
-启动页面只依赖Python标准库，无需安装Python包或虚拟环境。自动AI执行需本机已安装并登录Codex CLI，使用现有模型和账号额度。未检测到CLI时，可点击“仅生成桌面版任务”，将指令与原截图交给Codex桌面版；页面会明确显示当前能力。
+仅启动页面仍只依赖Python标准库：`py -3 launch.py`。完整安装会准备上方运行依赖。自动AI执行使用现有Codex模型和账号额度；桌面版任务生成仍可独立使用，页面会显示当前安装与工具状态。
 
-后台执行使用workspace-write沙箱、网络访问和自动审批审查，保留工具限制。真实采集、转写、数学核验与PDF输出按任务检查相应依赖；服务启动成功不代表整套课程已经整理完成。任务运行时保持启动终端开启，完成后可用Ctrl+C停止。
+后台执行使用workspace-write沙箱、网络访问和自动审批审查，保留工具限制。现有CLI版本需支持这些选项，不支持时显示日志。任务运行时保持启动终端开启，完成后可用Ctrl+C停止。
 
 中英文skill位于 [.agents/skills/bili-course-refinery/SKILL.md](.agents/skills/bili-course-refinery/SKILL.md)，项目内可发现，无需更改全局设置；可复制整个skill文件夹到其他项目的`.agents/skills/`复用。
 
@@ -46,6 +52,8 @@ git -c 'alias.refine=!cd "${GIT_PREFIX:-.}" && git clone https://github.com/ding
 - `scripts/transcribe.py`：可选的本地中文 ASR。
 
 这是**有人核对证据的工作流**。脚本不会自动看懂板书、完成证明或宣布审阅通过，也不内置下载器、课程材料、API 密钥或登录信息。历史脚本含个人路径和课程硬编码，本仓库重新提供便携的最小工具，未将原脚本原样当作产品发布。
+
+`scripts/acquire.py`已提供可执行的公开讲次采集适配器，按BV与分P调用固定提交的上游解析器，检查音视频时长；`scripts/compile_pdf.py`按安装配置选择XeLaTeX或Tectonic。它们由Codex使用，并保留可单独运行的入口，详见 [安装说明](docs/INSTALL.md)。
 
 ## 从一张截图开始
 
@@ -113,4 +121,4 @@ python scripts/workflow.py frames --video work/demo/media/lesson-001/video.mp4 -
 
 `.gitignore` 默认排除整个 `work/`、模型、媒体和本地凭据。忽略规则不会移除已经被 Git 跟踪的文件，上传前检查实际暂存清单。外部下载器按其原仓库使用条件运行，不随本包重分发。
 
-本项目发布地址为 [dingzhongmai-spec/bili-course-refinery](https://github.com/dingzhongmai-spec/bili-course-refinery)。不要顺带上传上级目录中的课程、参考书或下载器配置。许可尚未选择，见 [发布说明](docs/RELEASE.md)。
+本项目发布地址为 [dingzhongmai-spec/bili-course-refinery](https://github.com/dingzhongmai-spec/bili-course-refinery)。本仓库原创代码、文档与skill使用 [MIT许可](LICENSE)。外部采集器、FFmpeg、模型和其他依赖按各自许可使用；MIT不覆盖课程材料。不要顺带上传上级目录中的参考书或下载器配置，见 [发布说明](docs/RELEASE.md)。

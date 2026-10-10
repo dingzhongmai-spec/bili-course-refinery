@@ -72,7 +72,7 @@ class LauncherTests(unittest.TestCase):
 
     def test_exec_attaches_image_and_reads_prompt_from_stdin(self):
         fake = self.root / 'fake.py'
-        fake.write_text('import sys,json\nfrom pathlib import Path\na=sys.argv[1:]\np=Path(a[a.index("--output-last-message")+1])\np.write_text("stub result",encoding="utf-8")\np.with_name("trace.json").write_text(json.dumps({"args":a,"prompt":sys.stdin.read()}),encoding="utf-8")\n', encoding='utf-8')
+        fake.write_text('import sys,json\nfrom pathlib import Path\na=sys.argv[1:]\np=Path(a[a.index("--output-last-message")+1])\np.write_text("stub result",encoding="utf-8")\np.with_name("trace.json").write_text(json.dumps({"args":a,"prompt":sys.stdin.buffer.read().decode("utf-8")}),encoding="utf-8")\n', encoding='utf-8')
         task = launch.make_task({'image': PNG, 'request': '仅测试接线', 'language': 'en'})
         with patch.object(launch, 'codex_command', return_value=[sys.executable, str(fake)]):
             self.assertEqual(self.request('POST', '/api/run', {'id': task['id']})[0], 202)
