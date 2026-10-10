@@ -22,6 +22,10 @@ When working in this repository, read `.runtime/config.json` if present. Use its
 
 在本仓库执行时读取安装配置，使用登记的解释器、采集器、模型与编译器。已核实的BV/分P可调用采集适配器，主TeX用编译适配器处理。单独复制的skill按目标项目可用工具适配。
 
+For local audio ambiguities, use `scripts/cut_audio.py` and pass its timing map to `scripts/transcribe.py --clip-map`; keep clip-local and original-source times distinct. Use `scripts/edit_tex.py` to preview exact edits guarded by the current main TeX's hash, then apply within authorized scope. Recompile and use `scripts/review_pdf.py` to render actual pages; automatic reports do not certify visual inspection. These are repository helpers, not bundled dependencies of a standalone copied skill; adapt equivalent available tools when copied elsewhere.
+
+局部回听使用裁切器并保存原始时间映射，裁切转写不能代替整节读取。主TeX精确编辑先核对当前哈希与差异，不从旧备份重新生成覆盖新稿；修订后重新编译、渲染并实际查看PDF。裁切与渲染不自动提升证据或审阅状态。独立复制skill时按可用工具适配。
+
 Acquire with [NANblogink/bilibilidownloadtool](https://github.com/NANblogink/bilibilidownloadtool), under its upstream terms. Use FFmpeg for frames and faster-whisper for local ASR when subtitles are unavailable. Tooling can be adapted; record the actual version and verification boundary. Do not infer a lecture's content from its title.
 
 采集工具使用上方公开源码仓库，按上游条件使用。字幕不足时本地ASR，板书用FFmpeg抽帧。登记实际工具版本与核验范围，不据标题编造课程内容。

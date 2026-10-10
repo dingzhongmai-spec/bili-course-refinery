@@ -39,6 +39,8 @@ The launcher uses workspace-write sandboxing, network access and automatic appro
 
 ## Tools and skill
 
+[Editing and clipping helpers](docs/EDITING.md#english): hash-guarded TeX revisions, precise audio clips with source-time mappings, and PDF page rendering/inspection clues. They reuse installed dependencies and retain truthful evidence/review states.
+
 - Acquisition: [NANblogink/bilibilidownloadtool](https://github.com/NANblogink/bilibilidownloadtool), the public-source tool used in the original workflow, subject to its upstream terms.
 - Media/frame processing: [FFmpeg](https://www.ffmpeg.org/).
 - Local ASR when needed: [faster-whisper](https://github.com/SYSTRAN/faster-whisper).

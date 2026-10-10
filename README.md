@@ -48,6 +48,7 @@ Skill新增[讲义教学设计](.agents/skills/bili-course-refinery/references/h
 - [工具依赖和故障处理](docs/DEPENDENCIES.md)
 - [历史复盘：规则为什么产生](docs/RETROSPECTIVE.md)
 - [Codex 适配与分阶段提示词](docs/CODEX.md)
+- [LaTeX辅助编辑、音频裁切与PDF检查](docs/EDITING.md)：带主稿哈希的精确编辑、保留原课时间映射的裁切、逐页渲染排查。
 - [项目约束指令](AGENTS.md)
 - [最小方法与例题范例](examples/method.md)、[带编号公式的独立 TeX](templates/lecture.tex)
 - `scripts/workflow.py`：环境检查、初始化工作目录、结构检查、明确时间点抽帧。
