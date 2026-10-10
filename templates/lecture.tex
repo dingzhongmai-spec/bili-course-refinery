@@ -1,0 +1,44 @@
+% !TeX program = xelatex
+\documentclass[UTF8,12pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[unicode,colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+\numberwithin{equation}{section}
+\allowdisplaybreaks[2]
+\emergencystretch=2em
+\title{公开视频课程炼化：最小讲义示例}
+\author{整理者原创示例}
+\date{}
+\begin{document}
+\maketitle
+\section*{范围与核验说明}
+此文用于检验中文排版与公式编号，不是任何视频课程的已完成整理。
+原课事实须附来源；整理者解释须标明归属。编译成功不能代替数学与视觉审阅。
+\tableofcontents
+\section{换元为何有效}
+\subsection{题目与第一直觉}
+计算下式。根号内部的导数与分子中的一部分匹配，先拆出微分因子。
+\begin{equation}\label{eq:question}
+I=\int\frac{x^3}{\sqrt{1+x^2}}\,dx,\qquad x\in\mathbb R.
+\end{equation}
+\subsection{整理者解释与必要推导}
+取新变量后，剩下的平方也能由新变量表达；这使函数和微分同时简化。
+\begin{align}
+u&=1+x^2, & du&=2x\,dx,\label{eq:substitution}\\
+x^3\,dx&=\frac12(u-1)\,du,\\
+I&=\frac12\int\left(u^{1/2}-u^{-1/2}\right)\,du\\
+ &=\frac13u^{3/2}-u^{1/2}+C\\
+ &=\frac13(1+x^2)^{3/2}-\sqrt{1+x^2}+C.\label{eq:answer}
+\end{align}
+\subsection{条件、误区与简单路线比较}
+实数范围内根号有定义。注意式\eqref{eq:substitution}中的系数。
+三角代换需要额外恒等式与回代，此处直接换元步骤更少。
+无需强求全实轴上的单值反函数，所得结果可以直接求导核验。
+\subsection{独立核验}
+对式\eqref{eq:answer}的原函数求导，有
+\begin{align}
+F'(x)&=x\sqrt{1+x^2}-\frac{x}{\sqrt{1+x^2}}\\
+&=\frac{x^3}{\sqrt{1+x^2}}.
+\end{align}
+这项解析核验与实际运行CAS分别记录。真实课程还须检查原题和来源。
+\end{document}
